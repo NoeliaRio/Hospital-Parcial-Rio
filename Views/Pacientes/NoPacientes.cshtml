@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "No hay Pacientes";
+}
+
+<style>
+    .no-pacientes-box {
+        border: 2px dashed #007bff;
+        padding: 30px;
+        text-align: center;
+        background-color: #f0f8ff;
+        border-radius: 8px;
+        margin-top: 50px;
+    }
+
+    .no-pacientes-title {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="no-pacientes-box">
+    <h2 class="no-pacientes-title">No hay pacientes cargados</h2>
+    <p>Para comenzar, por favor cargá un nuevo paciente.</p>
+
+    <a href="@Url.Action("Create", "Pacientes")" class="btn btn-primary mt-3">Crear Paciente</a>
+</div>

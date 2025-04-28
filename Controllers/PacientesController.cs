@@ -1,14 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Hospital_Parcial_Rio.Data;
+using Hospital_Parcial_Rio.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Parcial_Rio.Controllers
 {
     public class PacientesController : Controller
     {
+        public BaseDatos _DB = new BaseDatos();
         // GET: PacientesController
         public ActionResult Index()
         {
-            return View();
+            var pacientes = _DB.ObtenerPacientes(0);
+
+            if (pacientes == null || pacientes.Count == 0)
+            {
+                return View("NoPacientes");
+            }
+
+            return View(pacientes);
         }
 
         // GET: PacientesController/Details/5
@@ -20,22 +30,22 @@ namespace Hospital_Parcial_Rio.Controllers
         // GET: PacientesController/Create
         public ActionResult Create()
         {
+            ViewBag.Obras_Sociales = _DB.ObtenerObras_Sociales(0);
+            ViewBag.Sintomas = _DB.ObtenerSintomas(0);
             return View();
         }
 
         // POST: PacientesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Paciente paciente)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            string result = _DB.GuardarPaciente(paciente);
+
+            if (string.IsNullOrEmpty(result))
+                return RedirectToAction("Index");
+            else
+                return View("Error", result);
         }
 
         // GET: PacientesController/Edit/5

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+<style>
+    .error-box {
+        border: 2px solid red;
+        padding: 20px;
+        background-color: #ffe6e6;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .error-title {
+        color: red;
+    }
+</style>
+
+<h2 class="error-title">Ocurrió un error</h2>
+
+<div class="error-box">
+    <p>@ViewBag.Error</p>
+</div>
+
+<a href="@Url.Action("Index", "Pacientes")" class="btn btn-primary mt-3">Volver al listado</a>
